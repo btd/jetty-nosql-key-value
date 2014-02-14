@@ -1,15 +1,12 @@
 package org.eclipse.jetty.nosql.kvs.session;
 
-import java.lang.reflect.Field;
-import java.util.Enumeration;
-import java.util.Map;
 
 import org.eclipse.jetty.server.session.AbstractSession;
 import org.eclipse.jetty.util.log.Log;
 import org.eclipse.jetty.util.log.Logger;
 
 public abstract class AbstractSessionFactory {
-	protected final static Logger log = Log.getLogger("org.eclipse.jetty.nosql.kvs.session.AbstractSessionFactory");
+	protected final static Logger log = Log.getLogger(AbstractSessionFactory.class);
 	public abstract ISerializableSession create();
 	protected ISerializationTranscoder transcoder;
 
