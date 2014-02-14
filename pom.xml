@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.geishatokyo.jetty</groupId>
@@ -44,6 +45,7 @@
     <module>jetty-nosql-kvs</module>
     <module>jetty-nosql-memcached</module>
     <module>tests</module>
+    <module>jetty-nosql-redis</module>
   </modules>
   <licenses>
     <license>
@@ -98,6 +100,11 @@
       <dependency>
         <groupId>com.geishatokyo.jetty</groupId>
         <artifactId>jetty-nosql-memcached</artifactId>
+        <version>0.4.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.geishatokyo.jetty</groupId>
+        <artifactId>jetty-nosql-redis</artifactId>
         <version>0.4.1-SNAPSHOT</version>
       </dependency>
       <dependency>

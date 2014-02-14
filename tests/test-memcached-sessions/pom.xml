@@ -49,6 +49,10 @@
       <groupId>com.geishatokyo.jetty</groupId>
       <artifactId>jetty-nosql-memcached</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.geishatokyo.jetty</groupId>
+      <artifactId>jetty-nosql-redis</artifactId>
+    </dependency>
     <dependency><!-- added slf4j as dependency since xmemcached requires it on testing -->
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
