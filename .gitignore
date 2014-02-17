@@ -15,7 +15,6 @@
 /jetty-nosql-memcached-gson
 /jetty-nosql-memcached-msgpack
 /jetty-nosql-memcached-protostuff
-/jetty-nosql-redis
 
 ## maven artifacts
 /target
@@ -25,3 +24,4 @@
 *.orig
 /tmp
 /bin
+jetty-nosql-redis/target
