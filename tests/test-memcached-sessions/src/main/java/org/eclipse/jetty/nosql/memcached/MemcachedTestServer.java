@@ -19,9 +19,6 @@ package org.eclipse.jetty.nosql.memcached;
 import java.util.concurrent.TimeUnit;
 
 import org.eclipse.jetty.nosql.kvs.KeyValueStoreSessionIdManager;
-import org.eclipse.jetty.nosql.memcached.AbstractMemcachedClientFactory;
-import org.eclipse.jetty.nosql.memcached.MemcachedSessionIdManager;
-import org.eclipse.jetty.nosql.memcached.MemcachedSessionManager;
 import org.eclipse.jetty.nosql.memcached.hashmap.HashMapClientFactory;
 import org.eclipse.jetty.nosql.memcached.spymemcached.BinarySpyMemcachedClientFactory;
 import org.eclipse.jetty.nosql.memcached.spymemcached.HerokuSpyMemcachedClientFactory;
@@ -106,7 +103,7 @@ public class MemcachedTestServer extends AbstractTestServer
             _idManager.setKeyPrefix("MemcachedTestServer::");
             _idManager.setKeySuffix("::MemcachedTestServer");
             // to avoid stupid bugs of instance initialization...
-            _idManager.setDefaultExpiry(_idManager.getDefaultExpiry());
+            _idManager.setScavengePeriod(_idManager.getDefaultExpiry());
             _idManager.setServerString(_idManager.getServerString());
             _idManager.setTimeoutInMs(_idManager.getTimeoutInMs());
 
@@ -157,7 +154,7 @@ public class MemcachedTestServer extends AbstractTestServer
     }
 
     public AbstractMemcachedClientFactory getMemcachedClientFactory() {
-        String useMock = System.getProperty("org.eclipse.jetty.nosql.memcached.useMock", "true").trim().toLowerCase(); // backward compatibility
+        String useMock = System.getProperty("org.eclipse.jetty.nosql.memcached.useMock", "false").trim().toLowerCase(); // backward compatibility
         String useBinary = System.getProperty("org.eclipse.jetty.nosql.memcached.useBinary", "false").trim().toLowerCase(); // backward compatibility
         String cfName = System.getProperty("org.eclipse.jetty.nosql.memcached.clientFactory", "default").trim().toLowerCase();
         AbstractMemcachedClientFactory clientFactory;

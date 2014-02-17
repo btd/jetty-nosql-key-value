@@ -19,8 +19,8 @@ public abstract class AbstractFactoryTest extends TestCase {
 		ISerializableSession session1, session2;
 
 		session1 = factory.create("session1");
-		session1.setAttribute("foo", "foo value");
-		session1.setAttribute("bar", 22222);
+		session1.setContextAttribute("", "foo", "foo value");
+		session1.setContextAttribute("", "bar", 22222);
 
 		byte[] raw = factory.pack(session1);
 		session2 = factory.unpack(raw);
@@ -28,6 +28,6 @@ public abstract class AbstractFactoryTest extends TestCase {
 
 		assertEquals(session1.getId(), session2.getId());
 		assertEquals(session1.getCreationTime(), session2.getCreationTime());
-		assertEquals(session1.getAttributeMap(), session2.getAttributeMap());
+		assertEquals(session1.getContext(), session2.getContext());
 	}
 }

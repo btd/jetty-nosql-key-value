@@ -85,7 +85,7 @@ public class RedisTestServer extends AbstractTestServer {
             _idManager.setKeyPrefix("RedisTestServer::");
             _idManager.setKeySuffix("::RedisTestServer");
             // to avoid stupid bugs of instance initialization...
-            _idManager.setDefaultExpiry(_idManager.getDefaultExpiry());
+            _idManager.setScavengePeriod(_idManager.getDefaultExpiry());
             _idManager.setServerString(_idManager.getServerString());
             _idManager.setTimeoutInMs(_idManager.getTimeoutInMs());
 

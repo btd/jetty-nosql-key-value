@@ -31,15 +31,17 @@ public abstract class AbstractSessionFactory {
 		s.setAccessed(accessed);
 		return s;
 	}
+        
+        public ISerializableSession create(String sessionId, long created, long accessed, int maxIdle) {
+		ISerializableSession s = create(sessionId, created, accessed);
+		s.setMaxIdle(maxIdle);
+		return s;
+	}
 
 	public ISerializableSession create(AbstractSession session) {
 		synchronized(session) {
-			ISerializableSession s = create(session.getId(), session.getCreationTime(), session.getAccessed());
-			if (session.isValid()) {
-				for (String key: session.getNames()) {
-					s.setAttribute(key, session.getAttribute(key));
-				}
-			} else {
+			ISerializableSession s = create(session.getClusterId(), session.getCreationTime(), session.getAccessed(), session.getMaxInactiveInterval());
+			if (!session.isValid()) {
 				// we do not need to retrieve attributes of invalidated sessions since
 				// they have been cleared on AbstractSession.invalidate().
 				s.setValid(false);

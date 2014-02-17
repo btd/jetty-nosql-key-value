@@ -6,151 +6,134 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public abstract class AbstractSerializableSession implements ISerializableSession, Serializable {
-	private static final long serialVersionUID = -8960779543485104697L;
-	public String _id = "";
-	public long _created = -1;
-	public long _accessed = -1;
-	public long _invalidated = -1;
-	public long _version = 0;
-	public Map<String, Object> _attributes = new HashMap<String, Object>();
-	public String _domain = "*";
-	public String _path = "*";
 
-	public String getId() {
-		return _id;
-	}
+    private static final long serialVersionUID = -8960779543485104697L;
 
-	public void setId(String id) {
-		this._id = id;
-	}
+    public String _id = "";
+    public long _created = -1;
+    public long _accessed = -1;
+    public long _invalidated = -1;
+    public int _maxIdle = -1;
+    public Map<String, Context> _context = new HashMap<String, Context>();
 
-	public long getCreationTime() {
-		return _created;
-	}
+    @Override
+    public String getId() {
+        return _id;
+    }
 
-	public void setCreationTime(long created) {
-		this._created = created;
-	}
+    @Override
+    public void setId(String id) {
+        this._id = id;
+    }
 
-	public long getAccessed() {
-		return _accessed;
-	}
+    @Override
+    public long getCreationTime() {
+        return _created;
+    }
 
-	public void setAccessed(long accessed) {
-		this._accessed = accessed;
-	}
+    @Override
+    public void setCreationTime(long created) {
+        this._created = created;
+    }
 
-	public synchronized Map<String, Object> getAttributeMap() {
-		return Collections.unmodifiableMap(_attributes);
-	}
+    @Override
+    public long getAccessed() {
+        return _accessed;
+    }
 
-	public synchronized void setAttributeMap(Map<String, Object> attributes) {
-		this._attributes = attributes;
-	}
+    @Override
+    public void setAccessed(long accessed) {
+        this._accessed = accessed;
+    }
 
-	public synchronized Object getAttribute(String key) {
-		return _attributes.get(key);
-	}
+    @Override
+    public boolean isValid() {
+        return _invalidated < 0;
+    }
 
-	public synchronized void setAttribute(String key, Object obj) {
-		_attributes.put(key, obj);
-	}
+    @Override
+    public void setValid(boolean valid) {
+        if (valid) {
+            this._invalidated = -1L;
+        } else {
+            this._invalidated = System.currentTimeMillis();
+        }
+    }
 
-	public synchronized void removeAttribute(String key) {
-		_attributes.remove(key);
-	}
+    @Override
+    public long getInvalidated() {
+        return _invalidated;
+    }
 
-	public synchronized Enumeration<String> getAttributeNames() {
-		return Collections.enumeration(this._attributes.keySet());
-	}
+    @Override
+    public Map<String, Context> getContext() {
+        return Collections.unmodifiableMap(_context);
+    }
 
-	@Override
-	public String toString() {
-		return "{id:" + getId() +
-				", created:" + getCreationTime() +
-				", accessed:" + getAccessed() +
-				", attributes:" + getAttributeMap() +
-				", invalidated:" + getInvalidated() +
-		"}";
-	}
+    @Override
+    public void setContext(Map<String, Context> _context) {
+        this._context = _context;
+    }
 
-	public boolean isValid() {
-		return _invalidated < 0;
-	}
+    @Override
+    public void setContextVersion(String context, long version) {
+        if(_context.containsKey(context)) {
+            _context.get(context).setVersion(version);
+        } else {
+            _context.put(context, new Context(version));
+        }
+    }
 
-	public void setValid(boolean valid) {
-		if (valid) {
-			this._invalidated = -1L;
-		} else {
-			this._invalidated = System.currentTimeMillis();
-		}
-	}
+    @Override
+    public long getContextVersion(String context) {
+        if(!_context.containsKey(context)) {
+            _context.put(context, new Context());
+        }
+        return _context.get(context).getVersion();
+    }
 
-	public long getInvalidated() {
-		return _invalidated;
-	}
+    @Override
+    public Object getContextAttribute(String context, String attribute) {
+        Context c = _context.get(context);
+        if(c != null) {
+            return _context.get(context).getAttribute(attribute);
+        } else {
+            return null;
+        }
+    }
 
-	public long getVersion() {
-		return _version;
-	}
+    @Override
+    public void setContextAttribute(String context, String attribute, Object value) {
+        if(!_context.containsKey(context)) {
+            _context.put(context, new Context());
+        }
+        _context.get(context).setAttribute(attribute, value);
+    }
 
-	public void setVersion(long version) {
-		this._version = version;
-	}
+    @Override
+    public Map<String, Object> getContextAttributes(String context) {
+        Context c = _context.get(context);
+        if(c != null) {
+            return Collections.unmodifiableMap(c.getAttributes());
+        } else {
+            return null;
+        }
+    }
 
-	public String getDomain() {
-		return _domain;
-	}
+    @Override
+    public boolean removeContext(String context) {
+        return _context.remove(context) != null;
+    }
+    
+    @Override
+    public int getMaxIdle() {
+        return _maxIdle;
+    }
 
-	public void setDomain(String domain) {
-		this._domain = domain;
-	}
+    @Override
+    public void setMaxIdle(int maxIdle) {
+        _maxIdle = maxIdle;
+    }
 
-	public String getPath() {
-		return _path;
-	}
-
-	public void setPath(String path) {
-		this._path = path;
-	}
-
-	public boolean equals(ISerializableSession other) {
-		System.out.println("this=" + this + ", other=" + other);
-		boolean result = other != null;
-		result = result && this.getCreationTime() == other.getCreationTime();
-		result = result && this.getAccessed() == other.getAccessed();
-		result = result && this.getInvalidated() == other.getInvalidated();
-		result = result && this.getVersion() == other.getVersion();
-		if (result) {
-			if (this.getId() == null) {
-				result = result && other.getId() == null;
-			} else {
-				result = result && this.getId().equals(other.getId());
-			}
-		}
-		if (result) {
-			if (this.getDomain() == null) {
-				result = result && other.getDomain() == null;
-			} else {
-				result = result && this.getDomain().equals(other.getDomain());
-			}
-		}
-		if (result) {
-			if (this.getPath() == null) {
-				result = result && other.getPath() == null;
-			} else {
-				result = result && this.getPath().equals(other.getPath());
-			}
-		}
-		if (result) {
-			if (this.getAttributeMap() == null) {
-				result = result && other.getAttributeMap() == null;
-			} else {
-				result = result && this.getAttributeMap().equals(other.getAttributeMap());
-			}
-		}
-		return result;
-	}
 }
