@@ -3,14 +3,14 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.geishatokyo.jetty</groupId>
   <artifactId>jetty-nosql-memcached-parent</artifactId>
-  <version>0.4.1-SNAPSHOT</version>
+  <version>0.5.0</version>
   <name>jetty-nosql-memcached-parent</name>
   <description>Parent projct of jetty-nosql-memcached and relating projects.</description>
-  <url>https://github.com/yyuu/jetty-nosql-memcached</url>
+  <url>https://github.com/btd/jetty-nosql-memcached</url>
   <packaging>pom</packaging>
   <properties>
     <jetty.version>9.1.2.v20140210</jetty.version>
-    <slf4j.version>1.6.1</slf4j.version>
+    <slf4j.version>1.7.5</slf4j.version>
     <junit.version>4.11</junit.version>
   </properties>
   <profiles>
@@ -55,19 +55,24 @@
     </license>
   </licenses>
   <scm>
-    <connection>scm:git:git://github.com/yyuu/jetty-nosql-memcached.git</connection>
-    <developerConnection>scm:git:git@github.com:yyuu/jetty-nosql-memcached.git</developerConnection>
-    <url>scm:git:git://github.com/yyuu/jetty-nosql-memcached.git</url>
+    <connection>scm:git:git://github.com/btd/jetty-nosql-memcached.git</connection>
+    <developerConnection>scm:git:git@github.com:btd/jetty-nosql-memcached.git</developerConnection>
+    <url>scm:git:git://github.com/btd/jetty-nosql-memcached.git</url>
   </scm>
   <issueManagement>
     <system>github</system>
-    <url>https://github.com/yyuu/jetty-nosql-memcached/issues</url>
+    <url>https://github.com/btd/jetty-nosql-memcached/issues</url>
   </issueManagement>
   <developers>
     <developer>
       <id>yyuu</id>
       <name>Yamashita, Yuu</name>
       <email>yamashita@geishatokyo.com</email>
+    </developer>
+    <developer>
+      <id>btd</id>
+      <name>Denis, Bardadym</name>
+      <email>bardadymchik@gmail.com</email>
     </developer>
   </developers>
   <dependencyManagement>
@@ -95,22 +100,22 @@
       <dependency>
         <groupId>com.geishatokyo.jetty</groupId>
         <artifactId>jetty-nosql-kvs</artifactId>
-        <version>0.4.1-SNAPSHOT</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.geishatokyo.jetty</groupId>
         <artifactId>jetty-nosql-memcached</artifactId>
-        <version>0.4.1-SNAPSHOT</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.geishatokyo.jetty</groupId>
         <artifactId>jetty-nosql-redis</artifactId>
-        <version>0.4.1-SNAPSHOT</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.geishatokyo.jetty.tests</groupId>
         <artifactId>test-memcached-sessions</artifactId>
-        <version>0.4.1-SNAPSHOT</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
