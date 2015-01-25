@@ -1,0 +1,4 @@
+description = 'jetty-nosql-keyvalue'
+dependencies {
+    compile group: 'org.eclipse.jetty', name: 'jetty-nosql', version: '9.2.6.v20141205'
+}

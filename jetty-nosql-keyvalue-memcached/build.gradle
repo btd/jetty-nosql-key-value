@@ -1,0 +1,6 @@
+description = 'jetty-nosql-keyvalue-memcached'
+dependencies {
+    compile project(':jetty-nosql-keyvalue')
+    compile group: 'net.spy', name: 'spymemcached', version: '2.11.5'
+    compile group: 'com.googlecode.xmemcached', name: 'xmemcached', version: '2.0.0'
+}

@@ -1,0 +1,14 @@
+group = 'com.geishatokyo.jetty.tests'
+description = 'test-memcached-sessions'
+dependencies {
+    compile project(':jetty-nosql-keyvalue-memcached')
+    compile project(':jetty-nosql-keyvalue-redis')
+    compile project(':jetty-nosql-keyvalue-xstream-serializer')
+    compile project(':jetty-nosql-keyvalue-kryo-serializer')
+
+    compile group: 'junit', name: 'junit', version:'4.11'
+    compile group: 'org.eclipse.jetty', name: 'jetty-server', version:'9.2.6.v20141205'
+    compile group: 'org.eclipse.jetty.tests', name: 'test-sessions-common', version:'9.2.6.v20141205'
+
+    testCompile group: 'org.slf4j', name: 'slf4j-log4j12', version:'1.7.10'
+}

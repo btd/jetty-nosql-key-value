@@ -38,7 +38,7 @@ SessionIdManagers can be configured in files under `${JETTY_HOME}/etc`.  In foll
       (... snip ...)
       
       <Set name="sessionIdManager">
-        <New id="memcachedSessionIdManager" class="org.eclipse.jetty.nosql.memcached.MemcachedSessionIdManager">
+        <New id="memcachedSessionIdManager" class="MemcachedSessionIdManager">
           <Arg><Ref id="Server" /></Arg>
           <Set name="serverString">localhost:11211</Set>
           <Set name="keyPrefix">session:</Set>
@@ -63,7 +63,7 @@ SessionIdManagers can be configured in files under `${JETTY_HOME}/etc`.  In foll
 You can configure the behavior of session ID manager with following setters.
 
 * setClientFactory(AbstractMemcachedClientFactory cf)
-  * set memcached client. org.eclipse.jetty.nosql.memcached.spymemcached.SpyMemcachedClientFactory is used by default.
+  * set memcached client. SpyMemcachedClientFactory is used by default.
 * setDefaultExpiry(int defaultExpiry)
   * set default expiry of sessions on memcached.
 * setKeyPrefix(String keyPrefix)
@@ -93,7 +93,7 @@ Sample configuration for `${APP_ROOT}/WEB-INF/jetty-web.xml`:
       <Set name="sessionHandler">
         <New class="org.eclipse.jetty.server.session.SessionHandler">
           <Arg>
-            <New class="org.eclipse.jetty.nosql.memcached.MemcachedSessionManager">
+            <New class="MemcachedSessionManager">
               <Set name="sessionIdManager">
                 <Ref id="memcachedSessionIdManager" />
               </Set>
@@ -127,12 +127,12 @@ Sample configuration for `${JETTY_HOME}/webapps/${APP_NAME}.xml`:
       <Set name="sessionHandler">
         <New class="org.eclipse.jetty.server.session.SessionHandler">
           <Arg>
-            <New id="memcachedSessionManaegr" class="org.eclipse.jetty.nosql.memcached.MemcachedSessionManager">
+            <New id="memcachedSessionManaegr" class="MemcachedSessionManager">
               <Set name="sessionIdManager">
                 <Ref id="memcachedSessionIdManager" />
               </Set>
               <Set name="sessionFactory">
-                <New class="org.eclipse.jetty.nosql.kvs.session.xstream.XStreamSessionFactory" />
+                <New class="org.eclipse.jetty.nosql.key_value.session.xstream.XStreamSessionFactory" />
               </Set>
             </New>
           </Arg>
@@ -157,7 +157,7 @@ You can configure the behavior of session manager with following setters.
 * setSessionIdManager(SessionIdManager idManager)
   * session id manager you created.
 * setSessionFactory(AbstractSessionFactory sf)
-  * set session serializer. org.eclipse.jetty.nosql.kvs.session.serializable.SerializableSessionFactory is used by default.
+  * set session serializer. org.eclipse.jetty.nosql.key_value.session.serializable.SerializableSessionFactory is used by default.
 
 
 ## Development

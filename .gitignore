@@ -4,24 +4,20 @@
 /.settings
 
 ## intellij project files
-/.idea
-/*.iml
+.idea
+*.iml
 
 ## vim files
 *.swo
 *.swp
 
-## hide changes on experimental projects
-/jetty-nosql-memcached-gson
-/jetty-nosql-memcached-msgpack
-/jetty-nosql-memcached-protostuff
-
 ## maven artifacts
-/target
+target
 
 ## others
 *~
 *.orig
-/tmp
-/bin
-jetty-nosql-redis/target
+
+.gradle
+build
+credentials.gradle

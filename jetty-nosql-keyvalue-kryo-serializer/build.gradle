@@ -1,0 +1,5 @@
+description = 'jetty-nosql-keyvalue-kryo-serializer'
+dependencies {
+    compile project(':jetty-nosql-keyvalue')
+    compile "com.esotericsoftware:kryo:3.0.0"
+}

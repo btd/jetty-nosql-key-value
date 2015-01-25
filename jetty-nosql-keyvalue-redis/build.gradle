@@ -1,0 +1,5 @@
+description = 'jetty-nosql-keyvalue-redis'
+dependencies {
+    compile project(':jetty-nosql-keyvalue')
+    compile group: 'redis.clients', name: 'jedis', version: '2.6.2'
+}

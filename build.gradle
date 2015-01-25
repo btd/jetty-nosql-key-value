@@ -1,0 +1,63 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:0.6"
+    }
+}
+
+allprojects {
+    group = 'com.geishatokyo.jetty'
+    version = '0.5.1'
+
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
+    apply plugin: 'com.jfrog.bintray'
+
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        jcenter()
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+            }
+        }
+    }
+
+    dependencies {
+        testCompile 'junit:junit:4.11'
+    }
+
+    jar {
+        manifest.attributes provider: 'gradle'
+    }
+
+    bintray {
+        user = bintray_user
+        key = bintray_key
+        publications = ['mavenJava']
+        publish = project.publish
+        pkg {
+            repo = 'maven'
+            name = project.name
+            licenses = ['Apache-2.0']
+            version {
+                name = project.version
+            }
+        }
+    }
+}
+
+

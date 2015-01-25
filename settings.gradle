@@ -1,0 +1,6 @@
+include "jetty-nosql-keyvalue"
+include "jetty-nosql-keyvalue-redis"
+include "jetty-nosql-keyvalue-memcached"
+include "jetty-nosql-keyvalue-kryo-serializer"
+include "jetty-nosql-keyvalue-xstream-serializer"
+include "tests"
